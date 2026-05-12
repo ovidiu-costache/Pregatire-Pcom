@@ -1,0 +1,20 @@
+sse implementeze o aplicatie client-server folosind TCP, pt simularea unui calculator de buzunar cu memorie. in aceasta aplicatie:
+1. toate calculele si stocarile de rezultate se vor realiza de catre server
+2. serverul va permite conectarea unui numar variabil de clienti, care pot trimite oricand comenzi pentru care
+vor vizualiza un mesaj de confirmare
+3. clientii vor fi identificati prin numarul intreg asociat fd-ului primit de socket-ul clientului in server
+4. serverul va asculta pe toate adresele IP asociate masinii pe care ruleaza si se va fula folosind comanda: ./server PORT_ASCULTARE
+5. clientul va comunica direct cu serverul si va fi pornit folisind comanda: ./client IP_SERVER PORT_SERVER
+6. la pornire, fiecare client va afisa ID ul sau in cadrul aplicatiei
+7. toti clientii se vor inchide in cazul in care serverul se deconecteaza. singura comanda permisa pe server va fi EXIT
+
+toate comenzile se vor introduce de la stdin, iar singurele comenzi permise sunt urmatoarele:
+CALC X OPERATOR Y - serverul va afisa rezultatul si il va afisa si clientul calculat de server (+, -, *, /, nu se poate /0)
+
+rezultatul poate fi:
+- rezultatul calcului in forma: %d %c %d = %d
+- nu este permisa impartirea la 0
+
+LIST (va afisa toate calculele facute precedent de acel client)
+
+EXIT (inchide clientul curent, avand ca rezultat eliberarea tuturor resurselor alocate)

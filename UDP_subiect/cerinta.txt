@@ -1,0 +1,41 @@
+sa se implementeze o aplicatie client-server folosind UDP, pt simularea unei aplicatii votare. in aceasta aplicatie:
+1. serverul va permite conectarea unui numar variabil de clienti care pot trimite oricand comenzi pt care vor 
+vizualiza un mesaj de confirmare doar dupa ce ele sunt procesate
+2. clientii vor fi identificati prin cate un nr intreg asociat secvential de catre server incepand de la zero.
+3. serverul va asculta toate adresele IP asociate masinii pe care ruleaza si se va rula folosind comanda:
+./server PORT_ASCULTARE
+4. clientul va vomunica direct doar cu serverul si va fi pornit folosind comanda:
+./client IP_SERVER PORT_SERVER
+5. la pornire, fiecare client va afisa ID-ul sau in cadrul aplicatiei.
+6. toti clientii se vor inchide in cazul in care serverul se deconecteaza. singura permisa pe server la fi EXIT.
+
+toate comenzile se vor introduce de la STDIN, iar singurele comenzi permise sunt urmatoarele:
+CANDIDATE
+- va adauga clientul curent in lista de candidati. atentie, nu toti clientii conectati sunt considerati candidati
+- se va afisa un mesaj de forma:
+    - am adaugat candidatura pentru id-ul %d sau
+    - ai candidat deja. ai %d voturi
+
+VOTE x
+- va adauga un vot pentru candidatul x. un client poate vota o singura data. incercarea de vot multiplu
+se va solda cu eroare. raspunsurile posibile sunt:
+- am adaugat un vot pentru clientul %d
+- ai votat deja. nu o poti face inca o data
+
+LIST 
+lista tuturor candidatilor, alaturi de numarul de voturi
+
+exemplu:
+CANDIDAT       VOTE_COUNT
+0              2
+3              7
+5              4
+SFARSIT
+
+EXIT
+inchide clientul curent, avand ca rezultat eliberarea tuturor resurselor alocate.
+Atentie! pentru a fi notata, implementarea trebuie sa implementeze controlul fluxului si 
+retransmisia mesajelor in ambele sensuri (conform indicatiilor din laboratorul 6) si sa folsoeasca in mod corect API ul pentru socketi UDP.
+
+Hint! diferit fata de tcp, la udp nu aveti optiunea de a astepta mesajele doar de la o sursa anume.
+aveti grija cum identificati sursa mesajelor (inclusiv pentru ACK-uri).
